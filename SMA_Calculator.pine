@@ -1,0 +1,31 @@
+// File: SMA_Calculator.pine
+// Pine Script Version: v6
+
+//@version=6
+indicator("Simple SMA Calculator v6", overlay=true)
+
+// 1. User Inputs
+length = input.int(20, minval=1, title="SMA Length")
+source = input.source(close, title="Source")
+
+// 2. SMA Calculation
+sma_value = ta.sma(source, length)
+
+// 3. Plot SMA
+plot(sma_value, title="SMA", color=color.blue, linewidth=2)
+
+// 4. Plot Source Price (optional for comparison)
+plot(source, title="Price", color=color.gray, linewidth=1)
+
+// 5. Display SMA Value Label (updates periodically)
+var label smaLabel = na
+if (bar_index % 20 == 0)
+    label.delete(smaLabel)
+    smaLabel := label.new(
+        bar_index, 
+        sma_value, 
+        text="SMA: " + str.tostring(sma_value, format.mintick),
+        style=label.style_label_down,
+        color=color.blue,
+        textcolor=color.white
+    )
