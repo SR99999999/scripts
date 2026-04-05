@@ -1,0 +1,4 @@
+//@version=5
+indicator("Sample SMA", overlay=true)
+smaLength = input.int(14, "SMA Length")
+plot(ta.sma(close, smaLength), color=color.orange, title="SMA")
